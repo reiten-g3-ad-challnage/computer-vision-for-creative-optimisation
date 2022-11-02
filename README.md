@@ -63,11 +63,12 @@ pip install -r requirements.txt
 ├── requirements.txt(Porject requirements)
 ```
 ## Contrbutors
-- Henok Desalegn
-- Emtinan Osman
-- Mohammed EsamAldeen
-- Tegisty Hailay
-- Haylemicheal Mekonnen  
-- Gedion Abebe
+
+- `Henok Desalegn`
+- `Emtinan Osman`
+- `Mohammed EsamAldeen`
+- `Tegisty Hailay`
+- `Haylemicheal Mekonnen ` 
+- `Gedion Abebe`
 
 
