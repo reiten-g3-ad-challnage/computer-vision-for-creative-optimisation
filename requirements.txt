@@ -1,0 +1,9 @@
+matplotlib
+pandas
+plotly
+jupyter
+dvc
+mlflow
+torch
+torchvision
+pytest
