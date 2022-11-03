@@ -72,3 +72,21 @@ class extract_color:
                                  columns=['c_code', 'rgb', 'occurrence'])
 
         return colors_df
+
+    def identify_dominant_colors(self, image: str, tolerance: int=12, top: int=4) -> list:
+        """
+        Identifies the $top dominant colors in image, and return their hex code and percentage of pixels 
+        [hex_1, hex_2, ..., perct_1, perct_2, ...]
+        """
+        colors, pixelcount = extcolors.extract_from_path(image, tolerance=tolerance, limit=top)
+        rgb_values = [i.split('), ')[0] + ')' for i in colors]
+        occ_values = [i.split('), ')[1].replace(')', '') for i in colors]
+
+        hex_values = [rgb2hex(int(i.split(", ")[0].replace("(", "")),
+                               int(i.split(", ")[1]),
+                               int(i.split(", ")[2].replace(")", ""))) for i in rgb_values]
+        perct_values = [i/pixelcount for i in occ_values]
+
+        dominant_colors_list = hex_values + perct_values
+
+        return dominant_colors_list
