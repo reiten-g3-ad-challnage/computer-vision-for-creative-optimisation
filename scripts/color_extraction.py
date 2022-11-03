@@ -3,6 +3,7 @@ import pandas as pd
 from colormap import rgb2hex
 from matplotlib import pyplot as plt
 from PIL import Image
+import os
 
 
 class extract_color:
