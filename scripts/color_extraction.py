@@ -81,14 +81,10 @@ class extract_color:
         
         colors, pixelcount = extcolors.extract_from_path(image, tolerance=tolerance, limit=top)
 
-        colors_pre_list = str(colors).replace('([(', '').replace(')],', '), (').split(', (')[0:-1]
+        rgb_values = [i[0] for i in colors]
+        occ_values = [i[1] for i in colors]
 
-        rgb_values = [i.split('), ')[0] + ')' for i in colors_pre_list]
-        occ_values = [i.split('), ')[1].replace(')', '') for i in colors_pre_list]
-
-        hex_values = [rgb2hex(int(i.split(", ")[0].replace("(", "")),
-                               int(i.split(", ")[1]),
-                               int(i.split(", ")[2].replace(")", ""))) for i in rgb_values]
+        hex_values = [rgb2hex(i[0], i[1], i[2]) for i in rgb_values]
         perct_values = [i/pixelcount for i in occ_values]
 
         dominant_colors_list = hex_values + perct_values
