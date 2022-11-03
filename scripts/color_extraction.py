@@ -78,9 +78,13 @@ class extract_color:
         Identifies the $top dominant colors in image, and return their hex code and percentage of pixels 
         [hex_1, hex_2, ..., perct_1, perct_2, ...]
         """
+        
         colors, pixelcount = extcolors.extract_from_path(image, tolerance=tolerance, limit=top)
-        rgb_values = [i.split('), ')[0] + ')' for i in colors]
-        occ_values = [i.split('), ')[1].replace(')', '') for i in colors]
+
+        colors_pre_list = str(colors).replace('([(', '').replace(')],', '), (').split(', (')[0:-1]
+
+        rgb_values = [i.split('), ')[0] + ')' for i in colors_pre_list]
+        occ_values = [i.split('), ')[1].replace(')', '') for i in colors_pre_list]
 
         hex_values = [rgb2hex(int(i.split(", ")[0].replace("(", "")),
                                int(i.split(", ")[1]),
