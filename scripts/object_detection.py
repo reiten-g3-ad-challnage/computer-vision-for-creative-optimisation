@@ -22,7 +22,8 @@ CLASSES = ["background", "aeroplane", "bicycle", "bird", "boat",
 COLORS = np.random.uniform(0, 255, size=(len(CLASSES), 3))
 
 #Reading the network in a variable called net using cv2.dnn.readNetFromCaffe.
-net = cv2.dnn.readNetFromCaffe('/models/caffe/MobileNetSSD_deploy.prototxt', 'ssd_files/MobileNetSSD_deploy.caffemodel')
+net = cv2.dnn.readNetFromCaffe('models/caffe/MobileNetSSD_deploy.prototxt', 
+                               'ssd_files/MobileNetSSD_deploy.caffemodel')
 
 #If the parameter use_gpu is set to TRUE, set the backend and target to Cuda.
 if use_gpu:
