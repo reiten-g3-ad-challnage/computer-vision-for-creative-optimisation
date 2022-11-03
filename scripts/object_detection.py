@@ -35,7 +35,7 @@ print("[INFO] accessing video stream...")
 if live_video:
     vs = cv2.VideoCapture(0)
 else:
-    vs = cv2.VideoCapture('traffic.mp4')
+    vs = cv2.VideoCapture('sample.mp4')
 
 #Let’s get in the infinite array and read the frames
 while ret:
