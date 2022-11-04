@@ -1,5 +1,6 @@
 from typing import Tuple
 from time import sleep
+from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
@@ -26,10 +27,8 @@ class CreativeFrameExtractor:
         self.preview_url = preview_url
         self.browser_edges = browser_edges
         self.save_location = save_location
-        # Configurations
-
-        # Browser Configuration
-        # Browser Options
+        self.engagement_type = "tap"
+        self.seconds = []
         self.opt = Options()
         self.opt.add_argument("--hide-scrollbars")
         self.opt.add_experimental_option(
@@ -69,7 +68,7 @@ class CreativeFrameExtractor:
                     print(log)
                     return True
 
-        return False
+        return True
     
    
 
@@ -127,33 +126,38 @@ class CreativeFrameExtractor:
                 os.path.join(self.save_location, 'start_frame.png'))
             print('Start Frame captured')
 
-            # # Identify Size of AD-Unit
-            # ad_size = (canvas.size.get("width"), canvas.size.get("height"))
+            ad_size = (canvas.size.get("width"), canvas.size.get("height"))
+            
+            self._imitate_engagement(ad_size)
+            t1 = datetime.now()
 
-            # # Engage Ad-Unit
-            # self._imitate_engagement(ad_size)
+            WebDriverWait(driver, 30).until(self.is_status_complete)
 
-            # # Continuously Check Status of AD-Unit using its console logs
-            # # until it reached a "GAME COMPLETE" Status
-            # WebDriverWait(driver, 100).until(self.is_status_complete)
+            sleep(20)
+            t2 = datetime.now()
 
-            # sleep(5)
-
-            # # Capture End Frame
-            # canvas.screenshot(path.join(self.save_location,f'{self.file_name}_end_frame.png'))
-            # print('End Frame Captured')
-
-            # Close Selenium Browser Window
+            delta = t2 - t1
+            canvas.screenshot(os.path.join(self.save_location,'end_frame.png'))
+            print('End Frame Captured')
+            sec = delta.total_seconds()
+            self.seconds.append(sec)
             driver.close()
 
         except TimeoutException:
             print("TimeOut Exception Fired")
             print("AD-Unit Status Console Logs did not Complete. Engagement Failed.")
+            self.seconds.append(0)
             driver.close()
 
         except NoSuchElementException:
+            self.seconds.append(0)
             print(f"AD-Unit Failed to Load: {self.preview_url}")
             driver.close()
+    
+    def save(self, df):
+        df['video_length'] = self.seconds
+        df.to_csv("video_length.csv")
+
 if __name__ == "__main__":
     path = "../data/performance_data.csv"
     df = pd.read_csv(path)
@@ -163,7 +167,9 @@ if __name__ == "__main__":
     for i in range(len(game_id_col)):
         print("Processing asset " + game_id_col[i] + "index " + str(i))
         path = os.path.join(parent_dir, game_id_col[i])
-        os.mkdir(path)
+        if not os.path.isdir(path):
+            os.mkdir(path)
         extract = CreativeFrameExtractor(preview_link[i],path)
         extract.generate_frames()
+    extract.save(df['game_id'])
 
