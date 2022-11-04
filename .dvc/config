@@ -1,0 +1,4 @@
+[core]
+    remote = eo-dvc-remote
+['remote "eo-dvc-remote"']
+    url = /home/emtinan_salaheldin/data-dvc
