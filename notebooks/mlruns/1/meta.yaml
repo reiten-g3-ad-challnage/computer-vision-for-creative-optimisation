@@ -1,0 +1,4 @@
+artifact_location: file:///C:/Users/User/Desktop/computer-vision-for-creative-optimisation/notebooks/mlruns/1
+experiment_id: '1'
+lifecycle_stage: active
+name: Predicting KPI using Random Forest Regressor
