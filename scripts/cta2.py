@@ -26,7 +26,6 @@ def detect_cta(game_id, path, logo):
 
 
 if __name__ == "__main__":
-
     path = "data/Challenge_Data/performance_data.csv"
     extracted_image_dir = "data/extracted_images"
     df = pd.read_csv(path)
