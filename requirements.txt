@@ -7,3 +7,9 @@ mlflow
 torch
 torchvision
 pytest
+opencv
+deepface
+colormap
+pytesseract
+pyautogui
+selenium
