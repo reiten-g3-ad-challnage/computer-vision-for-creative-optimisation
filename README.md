@@ -12,7 +12,7 @@ Table of contents
 ## Overview
 
 </br>
-<img src="images/week11-flow-diagram_v3.png" name="">
+<img src="images/Design-diagram.jpg" name="">
 <br/>
 
 The aim of this project is to apply deep learning based computer vision techniques for creative optimization in mobile advertising. We will develop a deep learning based computer vision algorithm that segments objects from creative assets and relates them to KPI parameters of the corresponding campaigns in order to optimise creatives based on campaign performance data.
